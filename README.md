@@ -14,7 +14,7 @@ npm or yarn
 ### Used addons:
 
 #### Sass:
-`yarn add node-sass`
+`yarn add sass`
 
 <hr>
 ## Restore:
