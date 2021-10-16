@@ -7,7 +7,7 @@ import CellMatrix from './components/CellMatrix';
 function App() {
 
   let [matrix, setMatrix] = React.useState<Matrix>( 
-    new Matrix( 15, 20 )
+    new Matrix( 100, 100 )
   );
 
   let nextGen = () => {

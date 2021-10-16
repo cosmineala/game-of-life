@@ -41,9 +41,14 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
         // gridTemplateRows: 'minmax(100px, auto);'
     };
 
+    function fetMax(): number {
+        const { innerWidth: width, innerHeight: height } = window;
+        return  ( width > height ? height : width ) -  100;
+    }
+
     let cellSyle: React.CSSProperties = {
-        height: '50px',
-        width: '50px',
+        height: fetMax() / matrix.height + "px",
+        width: fetMax() / matrix.height + "px",
     };
 
     return (
