@@ -63,7 +63,6 @@ export default class Matrix implements IMatrix{
         if( this.get(  x, y ) === true){
             count--;
         }
-        // console.log("NEXT("+x+","+y+"): " + count);
         return count;
     }
 

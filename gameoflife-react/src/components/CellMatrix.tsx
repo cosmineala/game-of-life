@@ -9,10 +9,9 @@ interface IProps {
 let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
 
     const updateCell = (x: number, y: number): void => {
-        console.log("CLICK: " + x + ", " + y);
-        let mat = matrix.clone();
-        mat.inverCell(x, y);
-        setMatrix(mat);
+        let newMatrix = matrix.clone();
+        newMatrix.inverCell(x, y);
+        setMatrix(newMatrix);
     }
 
     const renderMatrix = () => {
@@ -30,7 +29,6 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
             }
         }
         return list;
-
     }
 
     let continerSyle: React.CSSProperties = {
@@ -41,22 +39,39 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
         // gridTemplateRows: 'minmax(100px, auto);'
     };
 
-    function fetMax(): number {
+    let getMinHW = (): number => {
         const { innerWidth: width, innerHeight: height } = window;
-        return  ( width > height ? height : width ) -  100;
+        return  ( width > height ? height : width )  ;
     }
 
-    let cellSyle: React.CSSProperties = {
-        height: fetMax() / matrix.height + "px",
-        width: fetMax() / matrix.height + "px",
-    };
+    let [ cellSyle, setCellSyle ] = React.useState<React.CSSProperties>(
+        {
+            height: getMinHW() / matrix.height + "px",
+            width: getMinHW() / matrix.height + "px",
+        }
+    );
+
+    React.useEffect( () => {
+        window.addEventListener('resize', () => {
+            setCellSyle(
+                {
+                    height: getMinHW() / matrix.height + "px",
+                    width: getMinHW() / matrix.height + "px",
+                }
+            );
+        });
+    }, []);
 
     return (
         <div
-            className="App"
-            style={continerSyle}
+            className = "cell-continer"
         >
-            {renderMatrix()}
+            <div
+                className="App"
+                style={continerSyle}
+            >
+                {renderMatrix()}
+            </div>
         </div>
     );
 }

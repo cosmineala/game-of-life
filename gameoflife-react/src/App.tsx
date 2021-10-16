@@ -2,38 +2,33 @@ import React from 'react';
 import Matrix from './classLibrary/Matrix';
 import CellMatrix from './components/CellMatrix';
 
-
-
 function App() {
 
-  let [matrix, setMatrix] = React.useState<Matrix>( 
-    new Matrix( 100, 100 )
-  );
+    let [matrix, setMatrix] = React.useState<Matrix>( () => 
+        {
+            return new Matrix(50, 50);
+        }
+    );
 
-  let nextGen = () => {
-    setMatrix( matrix.nextGen() );
-  }
-  
-  return (
-    <div
-      className="App"
-    >
-      <CellMatrix 
-        matrix = {matrix}
-        setMatrix = {setMatrix}
-      />
-      <button
-        onClick={ () => { nextGen() } }
-      >
-        Next
-      </button>
-    </div>
-  );
+    React.useEffect(() => {
+        document.addEventListener('keydown', (e: KeyboardEvent) => {
+            if (e.key === " ") {
+                setMatrix(prevMatrix => prevMatrix.nextGen());
+            }
+        });
+    }, []);
 
+    return (
+        <div
+            className="App"
+        >
+            <CellMatrix
+                matrix={matrix}
+                setMatrix={setMatrix}
+            />
+        </div>
+    );
 
 }
-
-
-
 
 export default App;
