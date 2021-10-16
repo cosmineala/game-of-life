@@ -3,3 +3,30 @@
     
 }
 
+.cell{
+    position: relative;
+    width: max-content;
+    // margin: 5px;
+    // padding: 5px;
+    border: 1px solid gray;
+
+    &.dead{
+        background-color: black
+    }
+    &.alive{
+        background-color: white;
+    }
+
+    &:hover::before{
+        content: '';
+        display: block;
+        position: absolute;
+        top: 25%;
+        left: 25%;
+        height: 50%;
+        width: 50%;
+        border-radius: 50%;
+        background-color: coral;
+
+    }
+}
