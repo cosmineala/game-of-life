@@ -28,3 +28,10 @@ npm or yarn
 
 ### Build
 `yarn build`
+
+<hr>
+## Netlify config
+
+Base directory: `gameoflife-react`
+Build command: `CI= yarn build`
+Publish directory: `gameoflife-react/build`
