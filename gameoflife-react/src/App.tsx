@@ -1,10 +1,11 @@
 import React from 'react';
 import Matrix from './classLibrary/Matrix';
 import CellMatrix from './components/CellMatrix';
+import CHowTo from './components/CHowTo';
 
 function App() {
 
-    let [matrix, setMatrix] = React.useState<Matrix>( () => 
+    const [matrix, setMatrix] = React.useState<Matrix>( () => 
         {
             return new Matrix(50, 50);
         }
@@ -16,6 +17,9 @@ function App() {
 
                 case " ":
                     setMatrix(prevMatrix => prevMatrix.nextGen());
+                break;
+                case 'R':
+                    setMatrix(new Matrix(50, 50));
                 break;
 
                 default:
@@ -31,6 +35,7 @@ function App() {
                 matrix={matrix}
                 setMatrix={setMatrix}
             />
+            <CHowTo/>
         </div>
     );
 
