@@ -1,5 +1,5 @@
 import React from 'react';
-import Matrix from './classLibrary/Matrix';
+import Matrix from './components/Matrix';
 import CellMatrix from './components/CellMatrix';
 import CHowTo from './components/CHowTo';
 
