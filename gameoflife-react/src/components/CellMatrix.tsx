@@ -1,5 +1,5 @@
 import React from "react";
-import Matrix from '../classLibrary/Matrix';
+import Matrix from '../models/Matrix';
 
 interface IProps {
     matrix: Matrix,
