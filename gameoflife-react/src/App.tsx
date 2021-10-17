@@ -12,8 +12,13 @@ function App() {
 
     React.useEffect(() => {
         document.addEventListener('keydown', (e: KeyboardEvent) => {
-            if (e.key === " ") {
-                setMatrix(prevMatrix => prevMatrix.nextGen());
+            switch( e.key ){
+
+                case " ":
+                    setMatrix(prevMatrix => prevMatrix.nextGen());
+                break;
+
+                default:
             }
         });
     }, []);

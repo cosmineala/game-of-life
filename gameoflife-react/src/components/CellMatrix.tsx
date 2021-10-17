@@ -36,22 +36,21 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
         width: 'max-content',
         display: 'grid',
         gridTemplateColumns: 'repeat(' + matrix.width + ', 1fr)',
-        // gridTemplateRows: 'minmax(100px, auto);'
     };
 
     let getMinHW = (): number => {
         const { innerWidth: width, innerHeight: height } = window;
-        return  ( width > height ? height : width )  ;
+        return (width > height ? height : width);
     }
 
-    let [ cellSyle, setCellSyle ] = React.useState<React.CSSProperties>(
+    let [cellSyle, setCellSyle] = React.useState<React.CSSProperties>( 
         {
             height: getMinHW() / matrix.height + "px",
             width: getMinHW() / matrix.height + "px",
         }
     );
 
-    React.useEffect( () => {
+    React.useEffect(() => {
         window.addEventListener('resize', () => {
             setCellSyle(
                 {
@@ -64,10 +63,9 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
 
     return (
         <div
-            className = "cell-continer"
+            className="cell-continer"
         >
             <div
-                className="App"
                 style={continerSyle}
             >
                 {renderMatrix()}
