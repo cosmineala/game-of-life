@@ -19,9 +19,10 @@
         &.alive{
             background-color: white;
         }
-    
+        
         &:hover{
-            border: 4px solid coral;
+            // border: 4px solid coral;
+            background-color: coral;
         }
         
         // &:hover::before{
