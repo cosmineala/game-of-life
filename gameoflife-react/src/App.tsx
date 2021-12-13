@@ -3,11 +3,14 @@ import Matrix from './models/Matrix';
 import CellMatrix from './components/CellMatrix';
 import CHowTo from './components/CHowTo';
 
+let newDefaultMatrix = () => new Matrix({ width: 50, height: 50});
+
+
 function App() {
 
     const [matrix, setMatrix] = React.useState<Matrix>( () => 
         {
-            return new Matrix(50, 50);
+            return newDefaultMatrix();
         }
     );
 
@@ -16,10 +19,10 @@ function App() {
             switch( e.key ){
 
                 case " ":
-                    setMatrix(prevMatrix => prevMatrix.nextGen());
+                    setMatrix(prevMatrix => prevMatrix.getNextGenInstace());
                 break;
                 case 'R':
-                    setMatrix(new Matrix(50, 50));
+                    setMatrix(newDefaultMatrix());
                 break;
 
                 default:

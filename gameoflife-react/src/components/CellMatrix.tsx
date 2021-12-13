@@ -1,17 +1,17 @@
 import React from "react";
-import Matrix from '../models/Matrix';
+import Matrix, {IMatrix} from '../models/Matrix';
 
 interface IProps {
-    matrix: Matrix,
+    matrix: IMatrix,
     setMatrix: React.Dispatch<React.SetStateAction<Matrix>>
 }
 
 let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
 
     const updateCell = (x: number, y: number): void => {
-        let newMatrix = matrix.clone();
+        let newMatrix = matrix.getCloneInstance();
         newMatrix.inverCell(x, y);
-        setMatrix(newMatrix);
+        setMatrix( newMatrix );
     }
 
     const renderMatrix = () => {
@@ -20,7 +20,7 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
             for (let j = 0; j < matrix.width; j++) {
                 list.push(
                     <div
-                        className={"cell " + (matrix.get(i, j) === true ? "alive" : "dead")}
+                        className={"cell " + (matrix.getCell(i, j) === true ? "alive" : "dead")}
                         style={cellSyle}
                         onClickCapture={() => { updateCell(i, j) }}
                     >
