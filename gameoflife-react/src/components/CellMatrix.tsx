@@ -2,17 +2,15 @@ import React from "react";
 import Matrix, {IMatrix} from '../models/Matrix';
 
 interface IProps {
-    matrix: IMatrix,
-    setMatrix: React.Dispatch<React.SetStateAction<Matrix>>
+    state: {
+        matrix: IMatrix
+    }
+    onCellClickCallback( x: number, y: number ): void
 }
 
-let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
+let CellMatrix: React.FC<IProps> = ({ state, onCellClickCallback}) => {
 
-    const updateCell = (x: number, y: number): void => {
-        let newMatrix = matrix.getCloneInstance();
-        newMatrix.inverCell(x, y);
-        setMatrix( newMatrix );
-    }
+    const matrix = state.matrix;
 
     const renderMatrix = () => {
         let list = [];
@@ -22,7 +20,7 @@ let CellMatrix: React.FC<IProps> = ({ matrix, setMatrix }) => {
                     <div
                         className={"cell " + (matrix.getCell(i, j) === true ? "alive" : "dead")}
                         style={cellSyle}
-                        onClickCapture={() => { updateCell(i, j) }}
+                        onClickCapture={() => { onCellClickCallback(i, j) }}
                     >
                     </div>
                 )

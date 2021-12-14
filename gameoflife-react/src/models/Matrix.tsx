@@ -28,8 +28,9 @@ interface IJRule{
         rOnFalse?: boolean,
     }[]
 }
+
 let originalIJRule: IJRule = {
-    // nsr: 1,
+    nsr: 1,
     scenarios: [
         {
             requiredState: true,
@@ -80,12 +81,11 @@ export default class Matrix implements IMatrix{
     width: number;
     height: number;
 
-    matrix: boolean[][]
+    matrix: boolean[][];
 
     ijRule: IJRule = originalIJRule;
     FRule: FFunctionalRule = clasicRuleFunction;
 
-    // constructor( height: number = 0, width: number = 0, matrix?: boolean[][] ){
     constructor({
         height = 0,
         width = 0,
@@ -144,8 +144,9 @@ export default class Matrix implements IMatrix{
         }
         return count;
     }
-
-    getCellNextState( x: number, y: number ): boolean{
+    
+    // Executes functional rule
+    getCellNextState_fRule( x: number, y: number ): boolean{
  
         let cellIsAvlive = this.getCell(x,y);
         let neighbors = this.getNeighborsAlive(x,y);
@@ -153,9 +154,11 @@ export default class Matrix implements IMatrix{
         return this.FRule( cellIsAvlive, neighbors);
     }
 
-
-    compIJRule( x: number, y: number ): boolean{
+    // Interprets declarative rule
+    getCellNextState_dRule( x: number, y: number ): boolean{
+        
         let rule = this.ijRule;
+
         let cellState = this.getCell(x,y);
         let neighbors = this.getNeighborsAlive(x, y, rule.nsr );
 
@@ -181,6 +184,14 @@ export default class Matrix implements IMatrix{
         return cellState;
     }
 
+    nextGen(): void{
+        for (let i = 0; i < this.height ; i++) {
+            for (let j = 0; j < this.width ; j++) {
+                this.setCell( i, j, this.getCellNextState_dRule(i,j) );
+            }
+        }
+    }
+
     getNextGenInstace(): Matrix{
 
         let newMatrix: boolean[][] = [];
@@ -188,7 +199,7 @@ export default class Matrix implements IMatrix{
         for (let i = 0; i < this.height ; i++) {
             let row: boolean[] = [];
             for (let j = 0; j < this.width ; j++) {
-                row.push( this.compIJRule(i,j) );
+                row.push( this.getCellNextState_dRule(i,j) );
             }
             newMatrix.push( row );
         }
