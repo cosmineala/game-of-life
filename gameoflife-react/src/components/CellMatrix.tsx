@@ -1,18 +1,9 @@
 import React from "react";
-import {IMatrix} from '../models/Matrix';
+import  { ICMatrixRenderer} from '../models/Matrix';
 import {debugSetings} from "../debug/debugSetings"
 
-interface IProps {
-    state: {
-        matrix: IMatrix
-    }
-    onCellClickCallback( x: number, y: number ): void
-}
 
-let CellMatrix: React.FC<IProps> = ({ state, onCellClickCallback}) => {
-
-    const matrix = state.matrix;
-    console.log( state );
+let CellMatrix: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallback}) => {
 
     // Fit cell to screen
     const getMinHW = (): number => {

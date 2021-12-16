@@ -1,3 +1,9 @@
+
+export interface ICMatrixRenderer {
+    matrix: IMatrix
+    onCellClickCallback( x: number, y: number ): void
+}
+
 // Functional rule  -------------------------------------------------
 interface FFunctionalRule{
     ( isCellAlive: boolean, numberOfNeighbors: number ): boolean 

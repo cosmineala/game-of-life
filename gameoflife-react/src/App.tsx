@@ -80,7 +80,7 @@ function App() {
             className="App"
         >
             <CellMatrix
-                state={state}
+                matrix={state.matrix}
                 onCellClickCallback={onCellClickCallback}
             />
             <CHowTo/>
