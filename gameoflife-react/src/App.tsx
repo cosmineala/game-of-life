@@ -1,6 +1,6 @@
 import React from 'react';
 import Matrix from './models/Matrix';
-import CellMatrix from './components/CReactMatrixRenderer';
+import CReactMatrixRenderer from './components/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
 
 enum MatrixAction {
@@ -79,7 +79,7 @@ function App() {
         <div
             className="App"
         >
-            <CellMatrix
+            <CReactMatrixRenderer
                 matrix={state.matrix}
                 onCellClickCallback={onCellClickCallback}
             />

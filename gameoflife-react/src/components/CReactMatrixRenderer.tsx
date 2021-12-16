@@ -3,7 +3,7 @@ import  { ICMatrixRenderer} from '../models/Matrix';
 import {debugSetings} from "../debug/debugSetings"
 
 
-let CellMatrix: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallback}) => {
+let CReactMatrixRenderer: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallback}) => {
 
     // Fit cell to screen
     const getMinHW = (): number => {
@@ -77,4 +77,4 @@ let CellMatrix: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallback}) =>
     );
 }
 
-export default CellMatrix;
+export default CReactMatrixRenderer;
