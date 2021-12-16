@@ -1,6 +1,6 @@
 import React from 'react';
 import Matrix from './models/Matrix';
-import CellMatrix from './components/CellMatrix';
+import CellMatrix from './components/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
 
 enum MatrixAction {
