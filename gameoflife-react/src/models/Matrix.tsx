@@ -67,7 +67,7 @@ export interface IMatrix{
 
     getCell( x: number, y: number ): boolean,
     inverCell(x: number, y: number ): void,
-    getCloneInstance(): Matrix
+    // getCloneInstance(): Matrix
 }
 
 interface IConstrArgs{
@@ -101,7 +101,6 @@ export default class Matrix implements IMatrix{
         return Array( height ).fill(false).map(( )=>Array(width).fill(false));
     }
 
-
     getCell( x: number, y: number ): boolean{
         return this.matrix[x][y];
     }
@@ -132,15 +131,15 @@ export default class Matrix implements IMatrix{
         let count = 0;
         for (let i = -1 * r; i <= r ; i++) {
             for (let j = -1 * r; j <= r ; j++) {
-                if( this.isInMatrix( x+i, y+j ) ){
+                if( 
+                    this.isInMatrix( x+i, y+j ) &&
+                    !( i === 0 && j === 0 ) // is not itself
+                ){
                     if( this.getCell(  x+i, y+j ) === true){
                         count++;
                     }
                 }
             }
-        }
-        if( this.getCell(  x, y ) === true){
-            count--;
         }
         return count;
     }
@@ -177,6 +176,7 @@ export default class Matrix implements IMatrix{
 
                 if( passes === true && scen.rOnTrue !== undefined )
                     return scen.rOnTrue;
+
                 if( passes === false && scen.rOnFalse !== undefined )
                     return scen.rOnFalse;
             }
@@ -184,26 +184,25 @@ export default class Matrix implements IMatrix{
         return cellState;
     }
 
-    nextGen(): void{
-        for (let i = 0; i < this.height ; i++) {
-            for (let j = 0; j < this.width ; j++) {
-                this.setCell( i, j, this.getCellNextState_dRule(i,j) );
-            }
-        }
-    }
-
-    getNextGenInstace(): Matrix{
-
+    computeNextGen(): boolean[][] {
         let newMatrix: boolean[][] = [];
-
         for (let i = 0; i < this.height ; i++) {
             let row: boolean[] = [];
             for (let j = 0; j < this.width ; j++) {
                 row.push( this.getCellNextState_dRule(i,j) );
+                // row.push( this.getCellNextState_fRule(i,j) );
             }
             newMatrix.push( row );
         }
-        return new Matrix( { height: this.height, width: this.width, matrix: newMatrix });
+        return newMatrix;
+    }
+
+    nextGen(): void{
+        this.matrix = this.computeNextGen();
+    }
+
+    getNextGenInstace(): Matrix{
+        return new Matrix( { height: this.height, width: this.width, matrix: this.computeNextGen() });
     }
 
 

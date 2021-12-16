@@ -3,46 +3,61 @@ import Matrix from './models/Matrix';
 import CellMatrix from './components/CellMatrix';
 import CHowTo from './components/CHowTo';
 
+enum MatrixAction {
+    clickCell,
+    nextgen,
+    mewMatrix
+}
 
 interface IMatrixReducer {
-    ( 
+    (
         state: {
             matrix: Matrix
         },
         action: {
-            type: string,
+            type: MatrixAction,
             args?: {
                 x: number,
                 y: number
             }
         }
-        ): any;
+    ): any;
 }
 
-let newDefaultMatrix = () => new Matrix({ width: 50, height: 50});
-
-const matrixReducer: IMatrixReducer = ( state: any, action: any ): any => {
+let newDefaultMatrix = () =>{
+    return new Matrix({ width: 50, height: 50});
+}
+// react redux
+const reducer: IMatrixReducer = ( state: any, action: any ): any => {
+    const matrix =  state.matrix;
+    let change: any;
     switch( action.type ){
-        case "invertCell":
-            state.matrix.inverCell(action.args.x, action.args.y);
-            return{  matrix: state.matrix }
-        case "nextGen":
-            state.matrix.nextGen();
-            return{ matrix: state.matrix }
-        case "newMatrix":
-            return{ matrix: newDefaultMatrix() }
+
+        case MatrixAction.clickCell:
+            matrix.inverCell(action.args.x, action.args.y);
+            break;
+
+        case MatrixAction.nextgen:
+            matrix.nextGen();
+            break;
+
+        case MatrixAction.mewMatrix:
+            state.matrix = newDefaultMatrix();
+            break;
+
         default:
             console.log("___BUG___");
     }
+    return { ...state };
 }
 
 function App() {
     
-    const [state, dispatch] = React.useReducer(matrixReducer, { matrix: newDefaultMatrix() });
+    const [state, dispatch] = React.useReducer(reducer, { matrix: newDefaultMatrix() });
     
     let onCellClickCallback = (x: number, y: number): void => {
         dispatch({
-            type: "invertCell",
+            type: MatrixAction.clickCell,
             args: { x: x, y: y }
         });
     }
@@ -51,10 +66,10 @@ function App() {
         document.addEventListener('keydown', (e: KeyboardEvent) => {
             switch( e.key ){
                 case " ":
-                    dispatch({type: "nextGen"});
+                    dispatch({type: MatrixAction.nextgen});
                     break;
                 case 'R':
-                    dispatch({type: "newMatrix"});
+                    dispatch({type: MatrixAction.mewMatrix});
                     break;
             }
         });
