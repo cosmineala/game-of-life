@@ -26,7 +26,7 @@ interface IMatrixReducer {
 }
 
 let newDefaultMatrix = () =>{
-    return new Matrix({ width: 50, height: 50});
+    return new Matrix({ width: 50, height: 50 });
 }
 // react redux
 const reducer: IMatrixReducer = ( state: any, action: any ): any => {
@@ -84,7 +84,10 @@ function App() {
                 matrix={state.matrix}
                 onCellClickCallback={onCellClickCallback}
             /> */}
-            <CTreeJsRenderer/>
+            <CTreeJsRenderer
+                 matrix={state.matrix}
+                 onCellClickCallback={onCellClickCallback}
+            />
             <CHowTo/>
         </div>
     );
