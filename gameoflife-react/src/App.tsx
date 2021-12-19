@@ -2,6 +2,7 @@ import React from 'react';
 import Matrix from './models/Matrix';
 import CReactMatrixRenderer from './components/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
+import CTreeJsRenderer from './components/CTreeJsRenderer';
 
 enum MatrixAction {
     clickCell,
@@ -79,10 +80,11 @@ function App() {
         <div
             className="App"
         >
-            <CReactMatrixRenderer
+            {/* <CReactMatrixRenderer
                 matrix={state.matrix}
                 onCellClickCallback={onCellClickCallback}
-            />
+            /> */}
+            <CTreeJsRenderer/>
             <CHowTo/>
         </div>
     );
