@@ -6,6 +6,7 @@ interface ICube extends THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>
 }
 
 //
+const NO_CELL = {x:-1,y:-1};
 
 interface IConstrArgs {
     matrix: IMatrix,
@@ -27,6 +28,10 @@ export default class TreeJsRenderer implements IConstrArgs {
 
     material_black = new THREE.MeshBasicMaterial({ color: 0x000000 });  // greenish blue
     material_white = new THREE.MeshBasicMaterial({ color: 0xffffff });
+    material_coral = new THREE.MeshBasicMaterial({ color: 0xff7f50 });
+
+    lastHover = NO_CELL ;
+    cubes: ICube[][] = [];
 
     constructor({
         matrix,
@@ -50,11 +55,12 @@ export default class TreeJsRenderer implements IConstrArgs {
         this.camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
         this.camera.position.set(0, 0, this.matrix.width);
 
-        this.scene.background = new THREE.Color(0x154575);
+        this.scene.background = new THREE.Color(0x161616);
 
         this.renderInitialMatrix();
 
-        this.configRaycast();
+        this.configOnClick();
+        this.configOnHover();
         this.confOnResize();
 
         this.render();
@@ -67,8 +73,9 @@ export default class TreeJsRenderer implements IConstrArgs {
         const widthSize = 1.0;
         const heightSize = 1.0;
         const square_geometry = new THREE.PlaneGeometry(widthSize, heightSize);
-
+        const cubes = [];
         for (let i = 0; i < width; i++) {
+            const row = [];
             for (let j = 0; j < height; j++) {
 
                 let material = this.compMaterial( this.matrix.getCell(i, j));
@@ -83,37 +90,80 @@ export default class TreeJsRenderer implements IConstrArgs {
                         y: j
                     }
                 }
-
+                row.push( cube );
                 this.group_matrix.add(cube);
             }
+            cubes.push(row);
         }
+        this.cubes = cubes;
 
         this.group_matrix.position.set(-width / 2, -height / 2, 0);
 
         this.scene.add(this.group_matrix);
     }
 
-    configRaycast() {
-        const onDocumentMouseDown = (event: any) => {
-            var raycaster = new THREE.Raycaster();
-            var mouse = new THREE.Vector2();
+    configOnClick() {
+        const onClick = (event: any) => {
+            const hits = this.getCellByRay( event );
 
-            const { top, left } = this.canvas.getBoundingClientRect();
-            const { clientWidth, clientHeight } = this.renderer.domElement;
-
-            mouse.x =   ( ( event.clientX - top )  / clientWidth  ) * 2 - 1;
-            mouse.y = - ( ( event.clientY - left ) / clientHeight ) * 2 + 1;
-            raycaster.setFromCamera(mouse, this.camera);
-
-            var intersects = raycaster.intersectObjects(this.group_matrix.children);
-
-            for (let i = 0; i < intersects.length; i++) {
-                let cube = intersects[i].object as ICube;
-                let { x, y } = cube.getPositionInMatrix();
+            for (let i = 0; i < hits.length; i++) {
+                let { x, y } = hits[i];
                 this.clickCallback(x, y);
             }
         }
-        document.addEventListener('click', onDocumentMouseDown, false);
+        document.addEventListener('click', onClick, false);
+    }
+
+    configOnHover(){
+        const onMove = (event: any) => {
+            let hit = this.getCellByRay( event );
+            if( hit.length > 0 ){
+                this.heighliteCell(hit[0]);
+            }
+            else{
+                this.heighliteCell(NO_CELL);
+            }
+        }
+        document.addEventListener('mousemove', onMove, false);
+    }
+
+    heighliteCell( curent : THREE.Vec2 ): void{
+        let update = false;
+        if( this.lastHover !== NO_CELL ){
+            let {x,y} = this.lastHover;
+            this.cubes[x][y].material = this.compMaterial( this.matrix.getCell(x,y) );
+            update = true;
+        }
+
+        if( curent !== NO_CELL ){
+            let {x,y} = curent;
+            this.lastHover = curent;
+            this.cubes[x][y].material = this.material_coral;
+            update = true;
+        }
+
+        if( update === true ) this.render()
+    }
+
+    getCellByRay( event: any ): THREE.Vec2[]{
+        var raycaster = new THREE.Raycaster();
+        var mouse = new THREE.Vector2();
+
+        const { top, left } = this.canvas.getBoundingClientRect();
+        const { clientWidth, clientHeight } = this.renderer.domElement;
+
+        mouse.x =   ( ( event.clientX - top )  / clientWidth  ) * 2 - 1;
+        mouse.y = - ( ( event.clientY - left ) / clientHeight ) * 2 + 1;
+        raycaster.setFromCamera(mouse, this.camera);
+
+        var intersects = raycaster.intersectObjects(this.group_matrix.children);
+        const hits: THREE.Vec2[] = [];
+
+        for (let i = 0; i < intersects.length; i++) {
+            let cube = intersects[i].object as ICube;
+            hits.push( cube.getPositionInMatrix() );
+        }
+        return hits;
     }
 
     confOnResize(){
