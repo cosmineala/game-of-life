@@ -48,7 +48,7 @@ export default class TreeJsRenderer implements IConstrArgs {
         this.canvRoot?.appendChild(this.canvas);
 
         // config camera
-        const fov = 55;
+        const fov = 58;
         const aspect = window.innerWidth / window.innerHeight;
         const near = 0.00001;
         const far = 10_000;
@@ -82,8 +82,8 @@ export default class TreeJsRenderer implements IConstrArgs {
                 let cube = new THREE.Mesh(square_geometry, material) as ICube;
                 // let material = ( ( i + j ) % 2 === 0 ) ? this.material_black : this.material_white;
 
-                cube.position.x = i;
-                cube.position.y = j;
+                cube.position.x = j;
+                cube.position.y = -i;
                 cube.getPositionInMatrix = () => {
                     return {
                         x: i,
@@ -97,7 +97,7 @@ export default class TreeJsRenderer implements IConstrArgs {
         }
         this.cubes = cubes;
 
-        this.group_matrix.position.set(-width / 2, -height / 2, 0);
+        this.group_matrix.position.set( -width/2 , height / 2, 0);
 
         this.scene.add(this.group_matrix);
     }
