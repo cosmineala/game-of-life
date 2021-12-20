@@ -1,6 +1,10 @@
 import React from "react";
 
-const CHowTo = () => {
+interface IProps{
+    onChangeRenderer():void
+}
+
+const CHowTo: React.FC<IProps> = ( {onChangeRenderer} ) => {
 
     return(
         <ul
@@ -8,6 +12,9 @@ const CHowTo = () => {
         >
             <li>Space: next generation</li>
             <li>Sift + R: reset</li>
+            <button
+                onClick={ () => { onChangeRenderer() } }
+            > Change renderer </button>
         </ul>
     );
 }
