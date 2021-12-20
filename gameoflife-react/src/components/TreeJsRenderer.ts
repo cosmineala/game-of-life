@@ -31,7 +31,7 @@ export default class TreeJsRenderer implements IConstrArgs {
     material_coral = new THREE.MeshBasicMaterial({ color: 0xff7f50 });
 
     lastHover = NO_CELL ;
-    cubes: ICube[][] = [];
+    cell_matrix: ICube[][] = [];
 
     constructor({
         matrix,
@@ -73,29 +73,28 @@ export default class TreeJsRenderer implements IConstrArgs {
         const widthSize = 1.0;
         const heightSize = 1.0;
         const square_geometry = new THREE.PlaneGeometry(widthSize, heightSize);
-        const cubes = [];
+        const cell_matrix = [];
         for (let i = 0; i < width; i++) {
-            const row = [];
+            const cell_row = [];
             for (let j = 0; j < height; j++) {
 
                 let material = this.compMaterial( this.matrix.getCell(i, j));
-                let cube = new THREE.Mesh(square_geometry, material) as ICube;
-                // let material = ( ( i + j ) % 2 === 0 ) ? this.material_black : this.material_white;
+                let cell = new THREE.Mesh(square_geometry, material) as ICube;
 
-                cube.position.x = j;
-                cube.position.y = -i;
-                cube.getPositionInMatrix = () => {
+                cell.position.x = j;
+                cell.position.y = -i;
+                cell.getPositionInMatrix = () => {
                     return {
                         x: i,
                         y: j
                     }
                 }
-                row.push( cube );
-                this.group_matrix.add(cube);
+                cell_row.push( cell );
+                this.group_matrix.add(cell);
             }
-            cubes.push(row);
+            cell_matrix.push(cell_row);
         }
-        this.cubes = cubes;
+        this.cell_matrix = cell_matrix;
 
         this.group_matrix.position.set( -width/2 , height / 2, 0);
 
@@ -131,14 +130,14 @@ export default class TreeJsRenderer implements IConstrArgs {
         let update = false;
         if( this.lastHover !== NO_CELL ){
             let {x,y} = this.lastHover;
-            this.cubes[x][y].material = this.compMaterial( this.matrix.getCell(x,y) );
+            this.cell_matrix[x][y].material = this.compMaterial( this.matrix.getCell(x,y) );
             update = true;
         }
 
         if( curent !== NO_CELL ){
             let {x,y} = curent;
             this.lastHover = curent;
-            this.cubes[x][y].material = this.material_coral;
+            this.cell_matrix[x][y].material = this.material_coral;
             update = true;
         }
 
@@ -168,9 +167,12 @@ export default class TreeJsRenderer implements IConstrArgs {
 
     confOnResize(){
         const onDocumentresize = () => {
-            this.camera.aspect = window.innerWidth / window.innerHeight;
+            let { innerWidth, innerHeight } = window;
+
+            this.camera.aspect = innerWidth / innerHeight;
             this.camera.updateProjectionMatrix();
-            this.renderer.setSize( window.innerWidth, window.innerHeight );
+            this.renderer.setSize( innerWidth, innerHeight );
+
             this.render();
         }
         window.addEventListener( 'resize', onDocumentresize, false );
