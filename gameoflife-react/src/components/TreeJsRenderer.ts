@@ -183,16 +183,18 @@ export default class TreeJsRenderer implements IConstrArgs {
     }
 
     update() {
-        let list = this.group_matrix.children;
-        list.forEach(element => {
+        const cell_matrix = this.cell_matrix;
 
-            let cube = element as ICube;
-            let { x, y } = cube.getPositionInMatrix();
-
-            let material = this.compMaterial(this.matrix.getCell(x, y));
-            cube.material = material;
-
-        });
+        for (let i = 0; i < cell_matrix.length; i++) {
+            const cell_row = cell_matrix[i];
+            for (let j = 0; j < cell_row.length; j++) {
+                const cell = cell_row[j];
+                
+                let { x, y } = cell.getPositionInMatrix();
+                let material = this.compMaterial(this.matrix.getCell(x, y));
+                cell.material = material;
+            }
+        }
         this.render();
     }
 
