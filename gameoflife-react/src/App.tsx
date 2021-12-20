@@ -2,37 +2,38 @@ import React from 'react';
 import Matrix from './models/Matrix';
 import CReactMatrixRenderer from './components/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
+import CTreeJsRenderer from './components/CTreeJsRenderer';
+
+enum Renderers{
+    react,
+    threejs
+}
 
 enum MatrixAction {
-    clickCell,
-    nextgen,
-    mewMatrix
+    clickCell = "clickCell",
+    nextgen = "nextgen",
+    mewMatrix = "mewMatrix"
 }
 
-interface IMatrixReducer {
-    (
-        state: {
-            matrix: Matrix
-        },
-        action: {
-            type: MatrixAction,
-            args?: {
-                x: number,
-                y: number
-            }
-        }
-    ): any;
+enum RendererAction{
+    change = "changeRenderer"
 }
 
-let newDefaultMatrix = () =>{
-    return new Matrix({ width: 50, height: 50});
+interface IState{
+    matrix: Matrix,
+    renderer: Renderers
+}
+
+let newDefaultMatrix = () => {
+    return new Matrix({ width: 10, height: 10 });
 }
 // react redux
-const reducer: IMatrixReducer = ( state: any, action: any ): any => {
-    const matrix =  state.matrix;
-    let change: any;
-    switch( action.type ){
+const reducer = (state: any, action: any): any => {
+    const matrix = state.matrix;
+    const renderer = state.renderer; 
 
+    switch (action.type) {
+        // Matrix
         case MatrixAction.clickCell:
             matrix.inverCell(action.args.x, action.args.y);
             break;
@@ -45,6 +46,11 @@ const reducer: IMatrixReducer = ( state: any, action: any ): any => {
             state.matrix = newDefaultMatrix();
             break;
 
+        // Renderer
+        case RendererAction.change:
+            state.renderer = ( renderer === 0 ) ? 1 : 0;
+            break;
+
         default:
             console.log("___BUG___");
     }
@@ -52,9 +58,9 @@ const reducer: IMatrixReducer = ( state: any, action: any ): any => {
 }
 
 function App() {
-    
-    const [state, dispatch] = React.useReducer(reducer, { matrix: newDefaultMatrix() });
-    
+
+    const [state, dispatch] = React.useReducer(reducer, { matrix: newDefaultMatrix(), renderer: 0 });
+
     let onCellClickCallback = (x: number, y: number): void => {
         dispatch({
             type: MatrixAction.clickCell,
@@ -62,28 +68,52 @@ function App() {
         });
     }
 
+    let onChangeRenderer = () => {
+        dispatch({
+            type: RendererAction.change
+        });
+    };
+
     React.useEffect(() => {
         document.addEventListener('keydown', (e: KeyboardEvent) => {
-            switch( e.key ){
+            switch (e.key) {
                 case " ":
-                    dispatch({type: MatrixAction.nextgen});
+                    dispatch({ type: MatrixAction.nextgen });
                     break;
                 case 'R':
-                    dispatch({type: MatrixAction.mewMatrix});
+                    dispatch({ type: MatrixAction.mewMatrix });
                     break;
             }
         });
     }, []);
 
+    const renderRenderer = () => {
+        switch ( state.renderer ) {
+            case 0:
+                return (
+                    <CReactMatrixRenderer
+                        matrix={state.matrix}
+                        onCellClickCallback={onCellClickCallback}
+                    />
+                );
+            case 1:
+                return (
+                    <CTreeJsRenderer
+                        matrix={state.matrix}
+                        onCellClickCallback={onCellClickCallback}
+                    />
+                );
+        }
+    };
+
     return (
         <div
             className="App"
         >
-            <CReactMatrixRenderer
-                matrix={state.matrix}
-                onCellClickCallback={onCellClickCallback}
+            {renderRenderer()}
+            <CHowTo
+                onChangeRenderer = { onChangeRenderer }
             />
-            <CHowTo/>
         </div>
     );
 
