@@ -7,14 +7,22 @@ const CTreeJsRenderer: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallba
     const [treeMatrix, steTreeMatrix] = React.useState<TreeJsRenderer>();
 
     React.useEffect(() => {
-        steTreeMatrix(
-            new TreeJsRenderer({
-                matrix: matrix,
-                clickCallback: onCellClickCallback
-            })
-        )
-    }, []);
 
+        const newThreeMatrix =  new TreeJsRenderer({
+            matrix: matrix,
+            clickCallback: onCellClickCallback
+        });
+
+        steTreeMatrix(
+            newThreeMatrix
+        );
+
+        return () => {
+            newThreeMatrix.destructor();
+        };
+
+    }, []);
+        
     treeMatrix?.update();
 
     return (

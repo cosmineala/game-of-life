@@ -33,6 +33,10 @@ export default class TreeJsRenderer implements IConstrArgs {
     lastHover = NO_CELL ;
     cell_matrix: ICube[][] = [];
 
+    onMouseClick: any;
+    onMouseMove: any;
+    onWindowResize: any;
+
     constructor({
         matrix,
         clickCallback
@@ -64,7 +68,7 @@ export default class TreeJsRenderer implements IConstrArgs {
         this.confOnResize();
 
         this.render();
-
+        // console.log("C");
     }
 
     renderInitialMatrix() {
@@ -106,19 +110,19 @@ export default class TreeJsRenderer implements IConstrArgs {
     }
 
     configOnClick() {
-        const onClick = (event: any) => {
+        this.onMouseClick = (event: any) => {
             const hits = this.getCellByRay( event );
 
             for (let i = 0; i < hits.length; i++) {
                 let { x, y } = hits[i];
                 this.clickCallback(x, y);
             }
+            // console.log("ThreeJs onClick");
         }
-        document.addEventListener('click', onClick, false);
+        document.addEventListener('click', this.onMouseClick);
     }
-
     configOnHover(){
-        const onMove = (event: any) => {
+        this.onMouseMove = (event: any) => {
             let hit = this.getCellByRay( event );
             if( hit.length > 0 ){
                 this.heighliteCell(hit[0]);
@@ -126,8 +130,21 @@ export default class TreeJsRenderer implements IConstrArgs {
             else{
                 this.heighliteCell(NO_CELL);
             }
+            // console.log("ThreeJs onMove");
         }
-        document.addEventListener('mousemove', onMove, false);
+        document.addEventListener('mousemove', this.onMouseMove);
+    }
+    confOnResize(){
+        this.onWindowResize = () => {
+            let { innerWidth, innerHeight } = window;
+
+            this.camera.aspect = innerWidth / innerHeight;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize( innerWidth, innerHeight );
+
+            this.render();
+        }
+        window.addEventListener( 'resize', this.onWindowResize );
     }
 
     heighliteCell( curent : THREE.Vec2 ): void{
@@ -169,18 +186,7 @@ export default class TreeJsRenderer implements IConstrArgs {
         return hits;
     }
 
-    confOnResize(){
-        const onDocumentresize = () => {
-            let { innerWidth, innerHeight } = window;
 
-            this.camera.aspect = innerWidth / innerHeight;
-            this.camera.updateProjectionMatrix();
-            this.renderer.setSize( innerWidth, innerHeight );
-
-            this.render();
-        }
-        window.addEventListener( 'resize', onDocumentresize, false );
-    }
 
     render() {
         this.renderer.render(this.scene, this.camera);
@@ -206,5 +212,11 @@ export default class TreeJsRenderer implements IConstrArgs {
         return state ? this.material_white : this.material_black;
     }
 
+    destructor(){
+        // console.log("D");
+        document.removeEventListener('click', this.onMouseClick);
+        document.removeEventListener('mousemove', this.onMouseMove);
+        window.removeEventListener( 'resize', this.onWindowResize );
+    }
 
 }
