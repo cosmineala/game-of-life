@@ -1,6 +1,6 @@
 import React from "react";
-import  { ICMatrixRenderer} from '../models/Matrix';
-import {debugSetings} from "../debug/debugSetings"
+import  { ICMatrixRenderer} from '../../models/Matrix';
+import {debugSetings} from "../../debug/debugSetings"
 
 
 let CReactMatrixRenderer: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallback}) => {

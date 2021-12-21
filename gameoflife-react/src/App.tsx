@@ -1,8 +1,8 @@
 import React from 'react';
 import Matrix from './models/Matrix';
-import CReactMatrixRenderer from './components/CReactMatrixRenderer';
+import CReactMatrixRenderer from './components/renderers/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
-import CTreeJsRenderer from './components/CTreeJsRenderer';
+import CTreeJsRenderer from './components/renderers/threeJs/CTreeJsRenderer';
 
 enum Renderers{
     react,
