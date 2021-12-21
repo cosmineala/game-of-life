@@ -3,6 +3,7 @@ import Matrix from './models/Matrix';
 import CReactMatrixRenderer from './components/renderers/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
 import CTreeJsRenderer from './components/renderers/threeJs/CTreeJsRenderer';
+import CDecRule from './components/CDecRule';
 
 enum Renderers{
     react,
@@ -25,7 +26,7 @@ interface IState{
 }
 
 let newDefaultMatrix = () => {
-    return new Matrix({ width: 100, height: 100 });
+    return new Matrix({ width: 50, height: 50 });
 }
 // react redux
 const reducer = (state: any, action: any): any => {
@@ -113,6 +114,9 @@ function App() {
             {renderRenderer()}
             <CHowTo
                 onChangeRenderer = { onChangeRenderer }
+            />
+            <CDecRule 
+                ijUser={ state.matrix }
             />
         </div>
     );

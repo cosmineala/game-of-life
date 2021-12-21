@@ -38,3 +38,37 @@
         // }
     } // .cell
 } // .cell-continer
+
+.CDecRule{
+    padding: 20px 30px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+
+    form{
+        padding-left: 10px;
+
+        ul.scenarios{
+            &::before{
+                content: '';
+                display: block;
+                width: 100%;
+                height: 5px;
+                background-color: red;
+            }
+
+            >li{
+                &::before{
+                    content: '';
+                    display: block;
+                    width: 100%;
+                    height: 5px;
+                    background-color: coral;
+                }
+            }
+        }
+
+
+    }
+}
