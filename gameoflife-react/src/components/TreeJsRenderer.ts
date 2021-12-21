@@ -6,7 +6,7 @@ interface ICube extends THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial>
 }
 
 //
-const NO_CELL = {x:-1,y:-1};
+const NO_CELL: THREE.Vec2 = new THREE.Vector2( -1, -1 );
 
 interface IConstrArgs {
     matrix: IMatrix,
@@ -68,29 +68,33 @@ export default class TreeJsRenderer implements IConstrArgs {
     }
 
     renderInitialMatrix() {
+
         const { width, height } = this.matrix;
 
         const widthSize = 1.0;
         const heightSize = 1.0;
+
         const square_geometry = new THREE.PlaneGeometry(widthSize, heightSize);
+
         const cell_matrix = [];
+
         for (let i = 0; i < width; i++) {
             const cell_row = [];
             for (let j = 0; j < height; j++) {
 
-                let material = this.compMaterial( this.matrix.getCell(i, j));
-                let cell = new THREE.Mesh(square_geometry, material) as ICube;
+                let material = this.compMaterial( this.matrix.getCell(i, j) );
+                let cell_mesh = new THREE.Mesh(square_geometry, material) as ICube;
 
-                cell.position.x = j;
-                cell.position.y = -i;
-                cell.getPositionInMatrix = () => {
+                cell_mesh.position.x = j;
+                cell_mesh.position.y = -i;
+                cell_mesh.getPositionInMatrix = () => {
                     return {
                         x: i,
                         y: j
                     }
                 }
-                cell_row.push( cell );
-                this.group_matrix.add(cell);
+                cell_row.push( cell_mesh );
+                this.group_matrix.add(cell_mesh);
             }
             cell_matrix.push(cell_row);
         }
