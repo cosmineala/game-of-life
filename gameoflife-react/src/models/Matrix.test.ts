@@ -1,11 +1,7 @@
 import exp from "constants";
-import Matrix from "../models/Matrix";
+import Matrix from "./Matrix";
 
 let convToBool = ( intMat: number[][] ): boolean[][] => {
-    // let bolMat: boolean[][] = intMat.map( row => { 
-    //     row.map( item => { ( item === 0 ) ? false : true } );
-    // } );
-    // return bolMat;
 
     let boolMat: boolean[][] = [];
     for (let i = 0; i < intMat.length; i++) {
@@ -33,7 +29,7 @@ let compMat = ( m1: boolean[][], m2: boolean[][] ): boolean => {
     return true;
 }
 
-it( "check next gen", () => {
+test( "Mtarix.js -> nextGen()", () => {
     
     
     let data = convToBool([
