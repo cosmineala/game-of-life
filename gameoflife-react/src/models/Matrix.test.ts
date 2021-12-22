@@ -31,7 +31,6 @@ let compMat = ( m1: boolean[][], m2: boolean[][] ): boolean => {
 
 test( "Mtarix.js -> nextGen()", () => {
     
-    
     let data = convToBool([
         [0,0,0,0,0,0,0,0],
         [0,0,0,0,0,0,0,0],

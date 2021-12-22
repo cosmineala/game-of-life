@@ -18,25 +18,32 @@ const clasicRuleFunction: FFunctionalRule = (curent: boolean, neighbors: number)
     }
 }
 
+export interface IRequierments{
+    min: number,
+    max: number,
+}
+
+export interface IScenarios{
+    requiredState: boolean,
+    isEnabled: boolean,
+
+    requierments: IRequierments[],
+
+    setOnTrue: boolean,
+    enableOnTrue: boolean,
+
+    setOnFalse: boolean,
+    enableOnFalse: boolean,
+}
+
 // Declarative rule ------------------------------------------------
 export interface IJRule {
     nsr?: number, // neighbor Search Radius
-    scenarios: {
-        requiredState: boolean,
-        isEnabled: boolean,
-        requierments: {
-            min: number,
-            max: number,
-        }[],
-        setOnTrue: boolean,
-        enableOnTrue: boolean,
 
-        setOnFalse: boolean,
-        enableOnFalse: boolean,
-    }[]
+    scenarios: IScenarios[],
 }
 
-export const genJRule = () => {
+export const genJRule = (): IJRule => {
     return {
         nsr: 1,
         scenarios: [
