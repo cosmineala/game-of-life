@@ -1,3 +1,4 @@
+import * as IJR from "./IJRule"
 
 export interface ICMatrixRenderer {
     matrix: IMatrix
@@ -18,76 +19,7 @@ const clasicRuleFunction: FFunctionalRule = (curent: boolean, neighbors: number)
     }
 }
 
-export interface IRequierments{
-    min: number,
-    max: number,
-}
-
-export interface IScenarios{
-    requiredState: boolean,
-    isEnabled: boolean,
-
-    requierments: IRequierments[],
-
-    setOnTrue: boolean,
-    enableOnTrue: boolean,
-
-    setOnFalse: boolean,
-    enableOnFalse: boolean,
-}
-
-// Declarative rule ------------------------------------------------
-export interface IJRule {
-    nsr?: number, // neighbor Search Radius
-
-    scenarios: IScenarios[],
-}
-
-export const genJRule = (): IJRule => {
-    return {
-        nsr: 1,
-        scenarios: [
-            {
-                requiredState: true,
-                isEnabled: true,
-                requierments: [
-                    {
-                        min: 2,
-                        max: 3,
-                    }
-                ],
-                setOnTrue: true,
-                enableOnTrue: true,
-
-                setOnFalse: false,
-                enableOnFalse: true,
-            },
-            {
-                requiredState: false,
-                isEnabled: true,
-                requierments: [
-                    {
-                        min: 3,
-                        max: 3,
-                    }
-                ],
-                setOnTrue: true,
-                enableOnTrue: true,
-
-                setOnFalse: false,
-                enableOnFalse: true,
-            }
-        ]
-    }
-}
-
-const originalIJRule: IJRule = genJRule();
-
 // Matrix -----------------------------------------------------------
-
-export interface IJRuleUser {
-    ijRule: IJRule
-}
 
 export interface IMatrix {
     width: number,
@@ -105,14 +37,14 @@ interface IConstrArgs {
     matrix?: boolean[][],
 }
 
-export default class Matrix implements IMatrix, IJRuleUser {
+export default class Matrix implements IMatrix, IJR.IJRuleUser {
 
     width: number;
     height: number;
 
     matrix: boolean[][];
 
-    ijRule: IJRule = originalIJRule;
+    ijRule: IJR.IJRule = IJR.GET_clasic_IJRule();;
     FRule: FFunctionalRule = clasicRuleFunction;
 
     constructor({

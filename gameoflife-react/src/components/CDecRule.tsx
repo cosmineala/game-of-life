@@ -1,9 +1,9 @@
 import React from "react";
-import { IJRule, IJRuleUser, genJRule as RULE_ORIGINAL } from "../models/CellMatrix/Matrix"
+import * as IJR from "../models/CellMatrix/IJRule"
 import returnJSX from "../ReactUtil/Jsx"
 
 interface IState {
-  user: IJRuleUser
+  user: IJR.IJRuleUser
 }
 
 interface IReducerArgs { // function
@@ -48,7 +48,7 @@ const reducer: IReducerArgs = (state, action) => {
 };
 
 interface IProps {
-  ijUser: IJRuleUser
+  ijUser: IJR.IJRuleUser
 };
 
 const CDecRule: React.FC<IProps> = ({ ijUser }) => {
@@ -57,7 +57,7 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
     user: ijUser,
   });
 
-  const rule = state.user.ijRule as IJRule;
+  const rule = state.user.ijRule as IJR.IJRule;
 
   const changeDispatch = (parent: object, childStr: string, value: any) => {
     dispach({ type: Action.changeChildNumber, args: { pairObjChild: { obj: parent, child: childStr, value: value } } });
