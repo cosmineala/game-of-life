@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { IMatrix } from "../../../models/Matrix";
+import { IMatrix } from "../../../models/CellMatrix/Matrix";
 
 interface ICube extends THREE.Mesh<THREE.PlaneGeometry, THREE.MeshBasicMaterial> {
     getPositionInMatrix(): { x: number, y: number }

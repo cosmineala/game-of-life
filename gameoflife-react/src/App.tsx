@@ -1,5 +1,5 @@
 import React from 'react';
-import Matrix from './models/Matrix';
+import Matrix from './models/CellMatrix/Matrix';
 import CReactMatrixRenderer from './components/renderers/CReactMatrixRenderer';
 import CHowTo from './components/CHowTo';
 import CTreeJsRenderer from './components/renderers/threeJs/CTreeJsRenderer';

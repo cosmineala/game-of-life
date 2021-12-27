@@ -1,5 +1,5 @@
 import React from "react";
-import { IJRule, IJRuleUser, genJRule as RULE_ORIGINAL } from "../models/Matrix"
+import { IJRule, IJRuleUser, genJRule as RULE_ORIGINAL } from "../models/CellMatrix/Matrix"
 import returnJSX from "../ReactUtil/Jsx"
 
 interface IState {
