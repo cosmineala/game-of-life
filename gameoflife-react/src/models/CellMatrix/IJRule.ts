@@ -4,15 +4,14 @@ export interface IJRuleUser {
 
 export interface IJRule {
     nsr?: number, // neighbor Search Radius
-
-    scenarios: IScenarios[],
+    scenarios: IScenario[],
 }
 
-export interface IScenarios {
+export interface IScenario {
     requiredState: boolean,
     isEnabled: boolean,
 
-    requierments: IRequierments[],
+    requierments: IInterval[],
 
     setOnTrue: boolean,
     enableOnTrue: boolean,
@@ -21,7 +20,7 @@ export interface IScenarios {
     enableOnFalse: boolean,
 }
 
-export interface IRequierments {
+export interface IInterval {
     min: number,
     max: number,
 }
@@ -71,7 +70,7 @@ export const NEW_IJRule = ():IJRule => {
         scenarios: []
     };
 };
-export const NEW_IScenarios = (): IScenarios => {
+export const NEW_IScenarios = (): IScenario => {
     return{
         requiredState: false,
         isEnabled: false,
@@ -82,7 +81,7 @@ export const NEW_IScenarios = (): IScenarios => {
         enableOnFalse:false
     };
 }
-export const NEW_IRequierments = (): IRequierments => {
+export const NEW_IRequierments = (): IInterval => {
     return{
         min: 0,
         max: 0
