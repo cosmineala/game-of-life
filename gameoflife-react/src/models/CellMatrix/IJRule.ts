@@ -26,6 +26,7 @@ export interface IRequierments {
     max: number,
 }
 
+// Vals
 export const GET_clasic_IJRule = (): IJRule => {
     return {
         nsr: 1,
@@ -63,3 +64,27 @@ export const GET_clasic_IJRule = (): IJRule => {
         ]
     }
 }
+
+export const NEW_IJRule = ():IJRule => {
+    return {
+        nsr: 1,
+        scenarios: []
+    };
+};
+export const NEW_IScenarios = (): IScenarios => {
+    return{
+        requiredState: false,
+        isEnabled: false,
+        requierments: [],
+        setOnTrue: false,
+        enableOnTrue: false,
+        setOnFalse: false,
+        enableOnFalse:false
+    };
+}
+export const NEW_IRequierments = (): IRequierments => {
+    return{
+        min: 0,
+        max: 0
+    };
+};
