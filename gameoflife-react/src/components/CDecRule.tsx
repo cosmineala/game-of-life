@@ -101,7 +101,7 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                       checked={scen.isEnabled}
                       onChange={(e: any) => { changeDispatch(scen, "isEnabled", e.target.checked) }}
                     />
-                  </label>
+                  </label> <button>X</button>
                   <ul className="requierments">
                     {returnJSX((): JSX.Element[] => {
                       const req_list = [];
@@ -111,17 +111,17 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                         req_list.push(
                           <li key={ `req[${j}]` } className="requierment" >
                             <label htmlFor="">
-                              Max:
-                              <input type="number"
-                                value={req.max}
-                                onChange={(e: any) => { changeDispatch(req, "max", e.target.value) }}
-                              />
-                            </label> <br />
-                            <label htmlFor="">
                               Min:
                               <input type="number"
                                 value={req.min}
                                 onChange={(e: any) => { changeDispatch(req, "min", e.target.value) }}
+                              />
+                            </label> <button>X</button> <br />
+                            <label htmlFor="">
+                              Max:
+                              <input type="number"
+                                value={req.max}
+                                onChange={(e: any) => { changeDispatch(req, "max", e.target.value) }}
                               />
                             </label>
                           </li>
@@ -130,6 +130,7 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                       }
                       return (req_list);
                     })}
+                    <button>Add new interval</button>
                   </ul>
 
                   <label htmlFor="">
@@ -157,6 +158,7 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
             }
             return (scenarios);
           })}
+          <button>ADD new scenario</button>
         </ul>
       </form>
     </div>
