@@ -75,6 +75,9 @@ function App() {
     }
 
     let onResize = (x: number, y: number): void => {
+        const MAX = 500;
+        if( x > MAX ) x = MAX;
+        if( y > MAX ) y = MAX;
         dispatch({
             type: MatrixAction.resize,
             args: { x: x, y: y }
