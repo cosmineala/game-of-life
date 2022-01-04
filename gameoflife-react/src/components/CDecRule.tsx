@@ -66,13 +66,16 @@ const reducer: IReducerArgs = (state, action) => {
 
 interface IProps {
   ijUser: IJR.IJRuleUser
+  mSize: { x: number, y: number },
+  resize: any
 };
 
-const CDecRule: React.FC<IProps> = ({ ijUser }) => {
+const CDecRule: React.FC<IProps> = ({ ijUser, mSize, resize }) => {
 
   const [state, dispach] = React.useReducer(reducer, {
     user: ijUser,
   });
+
 
   const rule = state.user.ijRule as IJR.IJRule;
 
@@ -90,10 +93,24 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
     <div
       className="CDecRule"
     >
+      {/* Resize matrix */}
+      <label htmlFor="">
+        X: <input type="number" value={mSize.x}
+          onChange={(e) => {
+            resize( parseInt(e.target.value), mSize.y )
+          }}
+        /> <br />
+        Y: <input type="number" value={mSize.y} onChange={(e) => {
+          resize( mSize.x, parseInt(e.target.value) )
+        }} /> <br />
+      </label>
+
       <button
-        onClick={ (e: any)=>{ btnMod(e,()=>{
-          state.user.ijRule = IJR.GET_clasic_IJRule();
-        }) } }
+        onClick={(e: any) => {
+          btnMod(e, () => {
+            state.user.ijRule = IJR.GET_clasic_IJRule();
+          })
+        }}
       >RESET</button>
       <h3>Evolution rulres:</h3>
       <form>

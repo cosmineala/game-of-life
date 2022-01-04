@@ -13,7 +13,8 @@ enum Renderers{
 enum MatrixAction {
     clickCell = "clickCell",
     nextgen = "nextgen",
-    mewMatrix = "mewMatrix"
+    mewMatrix = "mewMatrix",
+    resize = "matrixresize",
 }
 
 enum RendererAction{
@@ -47,6 +48,10 @@ const reducer = (state: any, action: any): any => {
             state.matrix = newDefaultMatrix();
             break;
 
+        case MatrixAction.resize:
+            state.matrix.resize( action.args.x, action.args.y );
+            break;
+
         // Renderer
         case RendererAction.change:
             state.renderer = ( renderer === 0 ) ? 1 : 0;
@@ -65,6 +70,16 @@ function App() {
     let onCellClickCallback = (x: number, y: number): void => {
         dispatch({
             type: MatrixAction.clickCell,
+            args: { x: x, y: y }
+        });
+    }
+
+    let onResize = (x: number, y: number): void => {
+        const MAX = 500;
+        if( x > MAX ) x = MAX;
+        if( y > MAX ) y = MAX;
+        dispatch({
+            type: MatrixAction.resize,
             args: { x: x, y: y }
         });
     }
@@ -117,6 +132,8 @@ function App() {
             />
             <CDecRule 
                 ijUser={ state.matrix }
+                mSize={  { x: state.matrix.width, y: state.matrix.height } }
+                resize={ onResize }
             />
         </div>
     );
