@@ -1,5 +1,5 @@
 import React from "react";
-import  { ICMatrixRenderer} from '../../models/Matrix';
+import  { ICMatrixRenderer} from '../../models/CellMatrix/Matrix';
 import {debugSetings} from "../../debug/debugSetings"
 
 
@@ -52,6 +52,7 @@ let CReactMatrixRenderer: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCal
             for (let j = 0; j < matrix.width; j++) {
                 list.push(
                     <div
+                        key={ `cell[${i}][${j}]` }
                         className={"cell " + (matrix.getCell(i, j) === true ? "alive" : "dead")}
                         style={cellSyle}
                         onClickCapture={() => { onCellClickCallback(i, j) }}

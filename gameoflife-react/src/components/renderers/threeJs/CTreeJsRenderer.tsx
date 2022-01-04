@@ -1,5 +1,5 @@
 import React from "react";
-import { ICMatrixRenderer } from "../../../models/Matrix";
+import { ICMatrixRenderer } from "../../../models/CellMatrix/Matrix";
 import TreeJsRenderer from "./TreeJsRenderer";
 
 const CTreeJsRenderer: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCallback }) => {

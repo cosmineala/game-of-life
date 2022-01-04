@@ -38,3 +38,51 @@
         // }
     } // .cell
 } // .cell-continer
+
+@mixin bar( $height, $color, ) {
+    &::before{
+        content: '';
+        display: block;
+        width: 100%;
+        height: $height;
+        background-color: $color;
+    }
+}
+
+div.CDecRule{
+    padding: 20px 30px;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    color: white;
+
+    ul,li{
+        padding: 2px;
+        margin-left: 15px;
+        margin-top: 8px;
+    }
+
+    li{
+        border: 1px solid coral;
+    }
+    
+    ul{
+        padding: 2px;
+        border: 1px solid red;
+    }
+
+    form{
+        padding-left: 10px;
+
+        ul.scenarios{
+            
+            // @include bar( 10px,red );
+
+            >li{
+                // @include bar(5px,coral );
+            }
+        }
+
+
+    }
+}
