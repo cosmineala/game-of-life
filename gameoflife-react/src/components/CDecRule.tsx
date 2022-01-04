@@ -1,6 +1,7 @@
 import React from "react";
 import * as IJR from "../models/CellMatrix/IJRule"
 import returnJSX from "../ReactUtil/Jsx"
+import arrRemObj from "../ReactUtil/arrayUtil"
 
 interface IState {
   user: IJR.IJRuleUser
@@ -79,6 +80,12 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
     dispach({ type: Action.changeChildNumber, args: { pairObjChild: { obj: parent, child: childStr, value: value } } });
   };
 
+  const btnMod = (e: any, fun: any) => {
+    e.preventDefault();
+    fun();
+    dispach({ type: Action.refresh });
+  };
+
   return (
     <div
       className="CDecRule"
@@ -120,12 +127,9 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                   </label>
                   <button
                     onClick={(e: any) => {
-                      e.preventDefault();
-                      let index = rule.scenarios.indexOf(scen);
-                      if (index !== -1) {
-                        rule.scenarios.splice(index, 1);
-                      }
-                      dispach({ type: Action.refresh });
+                      btnMod(e, () => {
+                        arrRemObj(rule.scenarios, scen);
+                      })
                     }}
                   >X</button>
                   <ul className="requierments">
@@ -145,12 +149,9 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                             </label>
                             <button
                               onClick={(e: any) => {
-                                e.preventDefault();
-                                let index = scen.requierments.indexOf(req);
-                                if (index !== -1) {
-                                  scen.requierments.splice(index, 1);
-                                }
-                                dispach({ type: Action.refresh });
+                                btnMod(e, () => {
+                                  arrRemObj(scen.requierments, req);
+                                })
                               }}
                             >X</button> <br />
                             <label htmlFor="">
@@ -168,9 +169,9 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                     })}
                     <button
                       onClick={(e: any) => {
-                        e.preventDefault();
-                        scen.requierments.push(IJR.NEW_IRequierments());
-                        dispach({ type: Action.refresh });
+                        btnMod(e, () => {
+                          scen.requierments.push(IJR.NEW_IRequierments());
+                        })
                       }}
                     >Add new interval</button>
                   </ul>
@@ -202,9 +203,9 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
           })}
           <button
             onClick={(e: any) => {
-              e.preventDefault();
-              rule.scenarios.push(IJR.NEW_IScenarios());
-              dispach({ type: Action.refresh });
+              btnMod(e, () => {
+                rule.scenarios.push(IJR.NEW_IScenarios());
+              })
             }}
           >ADD new scenario</button>
         </ul>
