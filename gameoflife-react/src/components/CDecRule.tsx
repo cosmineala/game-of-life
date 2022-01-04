@@ -90,6 +90,11 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
     <div
       className="CDecRule"
     >
+      <button
+        onClick={ (e: any)=>{ btnMod(e,()=>{
+          state.user.ijRule = IJR.GET_clasic_IJRule();
+        }) } }
+      >RESET</button>
       <h3>Evolution rulres:</h3>
       <form>
         <label htmlFor="">
