@@ -28,6 +28,7 @@ export interface IMatrix {
 
     getCell(x: number, y: number): boolean,
     inverCell(x: number, y: number): void,
+    resize(width: number, height: number): void
     // getCloneInstance(): Matrix
 }
 
@@ -135,11 +136,11 @@ export default class Matrix implements IMatrix, IJR.IJRuleUser {
                         passes = true;
                 };
 
-                if ( passes && scen.enableOnTrue ){
+                if (passes && scen.enableOnTrue) {
                     return scen.setOnTrue;
                 }
 
-                if ( !passes && scen.enableOnFalse ){
+                if (!passes && scen.enableOnFalse) {
                     return scen.setOnFalse;
                 }
 
@@ -167,6 +168,35 @@ export default class Matrix implements IMatrix, IJR.IJRuleUser {
 
     getNextGenInstace(): Matrix {
         return new Matrix({ height: this.height, width: this.width, matrix: this.computeNextGen() });
+    }
+
+    resize(width: number, height: number): void {
+
+        let extrRows = height - this.height;
+        let extrCols = width - this.width;
+
+        for (let i = 0; i < Math.abs(extrRows); i++) {
+            if (extrRows > 0) {
+                this.matrix.push(Array(width).fill(false));
+            } else {
+                this.matrix.pop();
+            }
+        }
+
+        for (let i = 0; i < this.matrix.length; i++) {
+            const row = this.matrix[i];
+            if( row.length === width ) break;
+            for (let j = 0; j < Math.abs(extrCols); j++) {
+                if( extrCols > 0 ){
+                    row.push(false);
+                }else{
+                    row.pop();
+                }
+            }
+        }
+
+        this.width = width;
+        this.height = height;
     }
 
 

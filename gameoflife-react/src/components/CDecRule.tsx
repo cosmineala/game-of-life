@@ -18,6 +18,10 @@ interface IReducerArgs { // function
           child: string,
           value: any;
         },
+        vec2?: {
+          x: number,
+          y: number
+        },
       }
     },
 
@@ -25,7 +29,9 @@ interface IReducerArgs { // function
 }
 
 enum Action {
-  changeChildNumber
+  changeChildNumber,
+  matrixSize,
+  refresh
 }
 
 const reducer: IReducerArgs = (state, action) => {
@@ -40,6 +46,16 @@ const reducer: IReducerArgs = (state, action) => {
         let { obj, child, value } = args.pairObjChild;
         obj[child] = value;
       }
+      break;
+
+    case Action.matrixSize:
+      if (args?.vec2) {
+        let { x, y } = args.vec2;
+
+      }
+      break;
+
+    case Action.refresh:
       break;
 
   }
@@ -101,7 +117,17 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                       checked={scen.isEnabled}
                       onChange={(e: any) => { changeDispatch(scen, "isEnabled", e.target.checked) }}
                     />
-                  </label> <button>X</button>
+                  </label>
+                  <button
+                    onClick={(e: any) => {
+                      e.preventDefault();
+                      let index = rule.scenarios.indexOf(scen);
+                      if (index !== -1) {
+                        rule.scenarios.splice(index, 1);
+                      }
+                      dispach({ type: Action.refresh });
+                    }}
+                  >X</button>
                   <ul className="requierments">
                     {returnJSX((): JSX.Element[] => {
                       const req_list = [];
@@ -109,14 +135,24 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                         const req = scen.requierments[j];
 
                         req_list.push(
-                          <li key={ `req[${j}]` } className="requierment" >
+                          <li key={`req[${j}]`} className="requierment" >
                             <label htmlFor="">
                               Min:
                               <input type="number"
                                 value={req.min}
                                 onChange={(e: any) => { changeDispatch(req, "min", e.target.value) }}
                               />
-                            </label> <button>X</button> <br />
+                            </label>
+                            <button
+                              onClick={(e: any) => {
+                                e.preventDefault();
+                                let index = scen.requierments.indexOf(req);
+                                if (index !== -1) {
+                                  scen.requierments.splice(index, 1);
+                                }
+                                dispach({ type: Action.refresh });
+                              }}
+                            >X</button> <br />
                             <label htmlFor="">
                               Max:
                               <input type="number"
@@ -130,7 +166,13 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
                       }
                       return (req_list);
                     })}
-                    <button>Add new interval</button>
+                    <button
+                      onClick={(e: any) => {
+                        e.preventDefault();
+                        scen.requierments.push(IJR.NEW_IRequierments());
+                        dispach({ type: Action.refresh });
+                      }}
+                    >Add new interval</button>
                   </ul>
 
                   <label htmlFor="">
@@ -158,7 +200,13 @@ const CDecRule: React.FC<IProps> = ({ ijUser }) => {
             }
             return (scenarios);
           })}
-          <button>ADD new scenario</button>
+          <button
+            onClick={(e: any) => {
+              e.preventDefault();
+              rule.scenarios.push(IJR.NEW_IScenarios());
+              dispach({ type: Action.refresh });
+            }}
+          >ADD new scenario</button>
         </ul>
       </form>
     </div>
