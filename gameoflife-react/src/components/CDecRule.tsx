@@ -1,7 +1,7 @@
 import React from "react";
 import * as IJR from "../models/CellMatrix/IJRule"
 import returnJSX from "../ReactUtil/Jsx"
-import arrRemObj from "../ReactUtil/arrayUtil"
+import { arrRemObj } from "../ReactUtil/arrayUtil"
 
 interface IState {
   user: IJR.IJRuleUser
