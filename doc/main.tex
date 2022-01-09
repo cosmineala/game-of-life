@@ -8,9 +8,13 @@
 % \usepackage{url}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 \usepackage{indentfirst}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
 \setlength{\parindent}{0.5cm}
 
-\title{Jocului Vietii\\Proiectul 6}
+\title{Jocului Vieții\\Proiectul 6}
 \author{Capisizu Cosmin Louis\\IS1.1} % Sets authors name
 % \date{\today}
 
@@ -20,7 +24,7 @@
 
     \section{Cerința} % creates a section
         \paragraph{}
-            Proiectarea si implementarea unui sistem multi-agent pentru simularea jocului vietii, game of life. Se va defini si analiza cel putin un joc de tip automat celular diferit de cel din programul demonstrativ pentru jocul vietii. Pentru jocul vietii se vor defini si experimenta si alte configuratii initiale, pe langa cele predefinite in programul demonstrativ.
+            Proiectarea si implementarea unui sistem multi-agent pentru simularea jocului vieții, game of life. Se va defini si analiza cel putin un joc de tip automat celular diferit de cel din programul demonstrativ pentru jocul vietii. Pentru jocul vietii se vor defini si experimenta si alte configuratii initiale, pe langa cele predefinite in programul demonstrativ.
 
     \section{Prezentarea jocului}
 
@@ -75,6 +79,11 @@
             \paragraph{}
                 \textbf{O celula} poate fi vie sau morta, aceste stări fiind reprezentate de 1 sau 0 logic.
                 Tabloul ce este format din mulțimea celulelor este stocat într-o matrice. Aceasta structura este implementata la rândul ei ca fiind un vector de vectorii de stări logice. 
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=0.8]{matrix_matrix_def}
+                    \caption{Declararea matricii}
+                \end{figure}
 
             \paragraph{}
                 \textbf{Starea celulelor} este modificata de către clasa din care fac parte, astfel celula in sine are doar funcționalitatea de a-si retine propria stare.
@@ -103,12 +112,24 @@
             \paragraph{}
                 \textbf{Compatibilitatea dintre sistem si interfața grafica} se face folosind interfețele.
                 Sistemul multi-agent implementează o interfața ce permite interfeței grafice sa acceseze resursele necesare acesteia.
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=0.8]{IMatrix_interface}
+                    \caption{Interfața implementata de matrice}
+                \end{figure}
 
                 De asemenea interfața grafica are mai multe implementări ce implementează si ele la rândul lor o interfață.
+
+
 
             \paragraph{}
                 \textbf{Interfața grafica} este implementata folosind doua sisteme diferita: componente web native si implementarea grafica folosind o librărie grafica specializata.
                 Acestea doua implementări sunt abstractizate si pot fi interschimbate  in timp real de către utilizator.
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[scale=0.8]{ICMatricRenderer_interface}
+                    \caption{Interfața implementata de sistemele de randare}
+                \end{figure}
 
     \section{Funcționarea programului pentru experimentare}
 
@@ -116,7 +137,7 @@
 
     \section{Cazuri experimentale}
 
-    \section{Probleme intalnite}
+    \section{Probleme întâlnite}
 
         \paragraph{} Simularile multi-agent prezinta multe obstacole si probleme. Principalele dificultati in cadrul acestui proiect sunt:
         \begin{itemize}
@@ -125,9 +146,9 @@
             \item Implementarea si unei interfete grafice ce permite interactiunea directa cu simularea. Interfata grafica si simularea necesita arhitecturi total diferite. Deci simularea sistemului este punctul de referinta, interfata grafica afiseaza si modifica datele la cererea utilizatorului.
         \end{itemize}
 
-    \section{Modificarile si imbunatatirile necesare}
+    \section{Modificările si îmbunătățirile necesare}
 
-    \section{Referinte}
+    \section{Referințe}
 
         \begin{itemize}
             \item \href{https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life}{wiki | Conway's Game of Life}
