@@ -24,33 +24,33 @@
 
     \section{Cerința} % creates a section
         \paragraph{}
-            Proiectarea si implementarea unui sistem multi-agent pentru simularea jocului vieții, game of life. Se va defini si analiza cel putin un joc de tip automat celular diferit de cel din programul demonstrativ pentru jocul vietii. Pentru jocul vietii se vor defini si experimenta si alte configuratii initiale, pe langa cele predefinite in programul demonstrativ.
+            Proiectarea si implementarea unui sistem multi-agent pentru simularea jocului vieții, game of life. Se va defini si analiza cel puțin un joc de tip automat celular diferit de cel din programul demonstrativ pentru jocul vieții. Pentru jocul vieții se vor defini si experimenta si alte configurații inițiale, pe lângă cele predefinite in programul demonstrativ.
 
     \section{Prezentarea jocului}
 
-        \paragraph{}Jocul Vietii, cunoscut si sub numele de Viata, este un automat celular conceput de matematicianul britanic John Horton Conway in 1970. Este un joc fara jucatori, ceea ce inseamna ca evolutia sa este determinata de starea sa initiala, nefiind nevoie de alte informatii.
+        \paragraph{}Jocul Vieții, cunoscut si sub numele de Viata, este un automat celular conceput de matematicianul britanic John Horton Conway in 1970. Este un joc fără jucători, ceea ce înseamna ca evoluția sa este determinata de starea sa inițiala, nefiind nevoie de alte informații.
 
-        \paragraph{} Se interactioneaza cu Jocul Vietii creand o configuratie initiala si observand cum evolueaza. Este Turing complet si poate simula un constructor universal sau orice alta masina Turing.
+        \paragraph{} Se interacționează cu Jocul Vieții creând o configurație inițială si observând cum evoluează. Este Turing complet si poate simula un constructor universal sau orice alta mașina Turing.
 
-        \paragraph{} Universul Jocului Vietii este o retea ortogonala infinita, bidimensionala, de celule patrate, fiecare dintre acestea fiind intr-una dintre cele doua stari posibile, vie sau moarta (sau populata si, respectiv, nepopulata). Fiecare celula interactioneaza cu cei opt vecini ai sai, care sunt celulele care sunt adiacente orizontal, vertical sau diagonal.
+        \paragraph{} Universul Jocului Vieții este o rețea ortogonala infinita, bidimensionala, de celule pătrate, fiecare dintre acestea fiind într-una dintre cele doua stări posibile, vie sau moarta (sau populata si, respectiv, nepopulata). Fiecare celula interacționează cu cei opt vecini ai sai, care sunt celulele care sunt adiacente orizontal, vertical sau diagonal.
 
-        \paragraph{} La fiecare pas in timp, au loc urmatoarele tranzitii
+        \paragraph{} La fiecare pas in timp, au loc următoarele tranziții
         \begin{itemize}
-            \item Orice celula vie cu mai putin de doi vecini vii moare, ca prin subpopulare.
-            \item Orice celula vie cu doi sau trei vecini vii traieste in generatia urmatoare.
+            \item Orice celula vie cu mai puțin de doi vecini vii moare, ca prin subpopulare.
+            \item Orice celula vie cu doi sau trei vecini vii trăiește in generația următoare.
             \item Orice celula vie cu mai mult de trei vecini vii moare, ca prin suprapopulare.
             \item Orice celula moarta cu exact trei vecini vii devine o celula vie, ca prin reproducere.
         \end{itemize}
 
-        \paragraph{} La fiecare pas in timp, au loc urmatoarele tranzitii Aceste reguli, care compara comportamentul automatului cu viata reala, pot fi condensate in urmatoarele
+        \paragraph{} La fiecare pas in timp, au loc următoarele tranzitii Aceste reguli, care compara comportamentul automatului cu viata reala, pot fi condensate in următoarele
         \begin{itemize}
-            \item Orice celula vie cu doi sau trei vecini vii supravietuieste.
+            \item Orice celula vie cu doi sau trei vecini vii supraviețuiește.
             \item Orice celula moarta cu trei vecini vii devine o celula vie.
         \end{itemize}
 
-        \paragraph{} Toate celelalte celule vii mor in generatia urmatoare. In mod similar, toate celelalte celule moarte raman moarte.
+        \paragraph{} Toate celelalte celule vii mor in generația următoare. In mod similar, toate celelalte celule moarte rămân moarte.
 
-        \paragraph{} Modelul initial constituie samanta sistemului. Prima generatie este creata prin aplicarea regulilor de mai sus simultan la fiecare celula din samanta, vie sau moarta; nasterile si decesele au loc simultan, iar momentul discret in care se intampla acest lucru se numeste uneori capusa. Fiecare generatie este o functie pura a celei precedente. Regulile continua sa fie aplicate in mod repetat pentru a crea generatii viitoare.
+        \paragraph{} Modelul inițial constituie sămânța sistemului. Prima generație este creata prin aplicarea regulilor de mai sus simultan la fiecare celula din sămânță, vie sau moarta; nașterile si decesele au loc simultan, iar momentul discret in care se întâmpla acest lucru se numește uneori căpușa. Fiecare generație este o funcție pura a celei precedente. Regulile continua sa fie aplicate in mod repetat pentru a crea generații viitoare.
 
     \section{Problema studiata}
 
@@ -73,7 +73,7 @@
 
         \subsection{Parametri simulării}
             \paragraph{}
-                Pentru a permite utilizatorului sa interacționeze cu sistemul-multiagent s-au implementat următoarele funcționalități: modificarea manuala a stării unei celule folosind mouseul, modificarea dimensiunii simulării folosind interfața grafica si modificarea si resetarea regulilor folosind editorul din simulare.  
+                Pentru a permite utilizatorului sa interacționeze cu sistemul multi-agent s-au implementat următoarele funcționalități: modificarea manuala a stării unei celule folosind mouseul, modificarea dimensiunii simulării folosind interfața grafica si modificarea si resetarea regulilor folosind editorul din simulare.  
             
         \subsection{Implementarea simulării}
             \paragraph{}
@@ -96,7 +96,7 @@
                 In cazul in care scenariul est confirmat ca fiind potrivit pentru starea actuala se folosește un alt set intern de condiții ce stabilesc starea următoare a celulei.
             
             \paragraph{}
-                \textbf{Evolutia celuleror} este realizata de o metoda a clasei.
+                \textbf{Evoluția celulelor} este realizata de o metoda a clasei.
                 Aceasta funcție analizează datele ce sunt prezente in generația actuala si folosește instrucțiunile oferite de către serul de reguli pentru a genera următoare generație.
 
             \paragraph{}
@@ -138,17 +138,19 @@
     \section{Cazuri experimentale}
 
     \section{Probleme întâlnite}
-
-        \paragraph{} Simularile multi-agent prezinta multe obstacole si probleme. Principalele dificultati in cadrul acestui proiect sunt:
+        \paragraph{} 
+            Simulările multi-agent prezintă multe obstacole si probleme.
+            Principalele dificultăți in cadrul acestui proiect sunt:
         \begin{itemize}
             \item Implementarea sistemului ce retine si modifica starea agenților.
-            Acest sistem poate fi implementat folosind diferite structuri de date, cum ar fi: matricile sau listele.
-            Principalul avantaj al matricii este accesul direct al al oricarui agent dar si al vecinilor acestuia, un mare desavantaj este fapul ca odata cu cresterea dimensiunii sumularii creste si marimea matricii.
-            Simularea folosind liste permite o scalare mai usoara si o separare dintre numarul total de agenti posibil si marimea mediului de simulare.
-            Cel mai mare dezavantaj consta in faptul ca anumite operatii sunt mult mai greu de implementat si necesita mult mai multi pasi de executie.
-            In cazu acesui proiect matricea a fost solosita ca si mijloc de stocare al datelor.
-
-            \item Implementarea si unei interfete grafice ce permite interactiunea directa cu simularea. Interfata grafica si simularea necesita arhitecturi total diferite. Deci simularea sistemului este punctul de referinta, interfata grafica afiseaza si modifica datele la cererea utilizatorului.
+                Acest sistem poate fi implementat folosind diferite structuri de date, cum ar fi: matricile sau listele.
+                Principalul avantaj al matricii este accesul direct al oricărui agent dar si al vecinilor acestuia, un mare dezavantaj este faptul ca odată cu creșterea dimensiunii sumulării creste si mărimea matricii.
+                Simularea folosind liste permite o scalare mai ușoara si o separare dintre numărul total de agenți posibil si mărimea mediului de simulare.
+                Cel mai mare dezavantaj consta in faptul ca anumite operații sunt mult mai greu de implementat si necesita mult mai mulți pași de execuție.
+                In cazu acestui proiect matricea a fost folosita ca si mijloc de stocare al datelor.
+            \item Implementarea si unei interfețe grafice ce permite interacțiunea directa cu simularea.
+                Interfața grafica si simularea necesita arhitecturi total diferite.
+                Deci simularea sistemului este punctul de referință, interfața grafica afișează si modifica datele la cererea utilizatorului.
         \end{itemize}
 
     \section{Modificările si îmbunătățirile necesare}
