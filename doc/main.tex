@@ -18,7 +18,7 @@
     \maketitle % creates title using information in preamble (title, author, date)
     \pagebreak
 
-    \section{Cerinta} % creates a section
+    \section{Cerința} % creates a section
         \paragraph{}
             Proiectarea si implementarea unui sistem multi-agent pentru simularea jocului vietii, game of life. Se va defini si analiza cel putin un joc de tip automat celular diferit de cel din programul demonstrativ pentru jocul vietii. Pentru jocul vietii se vor defini si experimenta si alte configuratii initiale, pe langa cele predefinite in programul demonstrativ.
 
@@ -49,11 +49,70 @@
         \paragraph{} Modelul initial constituie samanta sistemului. Prima generatie este creata prin aplicarea regulilor de mai sus simultan la fiecare celula din samanta, vie sau moarta; nasterile si decesele au loc simultan, iar momentul discret in care se intampla acest lucru se numeste uneori capusa. Fiecare generatie este o functie pura a celei precedente. Regulile continua sa fie aplicate in mod repetat pentru a crea generatii viitoare.
 
     \section{Problema studiata}
-        \paragraph{} In cadrul acestui proiect problema consta in implementarea si stimularea agentilor din cadrul jocului vietii.
+
+        \paragraph{}
+        In cadrul acestui proiect, problema consta in implementarea si stimularea agenților din cadrul jocului vieții.
+        Acesta probleme are mai multe cerințe: Simularea sistemului multi-agent, analiza comportamentului agenților, si crearea unei modalități de alterare a parametrilor simulării.
+        
 
     \section{Metoda de rezolvare folosita}
 
-    \section{Functionarea programului pentru experimentare}
+        \paragraph{}
+            Pentru implementarea sistemului, analiza datelor dar si alterarea parametrilor simulării s-lau folosit mai multiple tehnologii web.
+
+            Fundația aplicației este construita folosind framework-ul "React" construit de "Facebook", dar si alte tehnologii cum ar fi "TypeScript" si "Sass".
+
+        \subsection{Sistemul multi-agent}
+            \paragraph{}
+                Acest sistem a fost construi folosind o clasa ce incorporează funcționalitatea dar si datele necesare simulării.
+                Ca si structura de date ce stochează starea simulării s-a folosit matricea. Aceasta oferă un acces simplu si rapid asupra stării agenților. 
+
+        \subsection{Parametri simulării}
+            \paragraph{}
+                Pentru a permite utilizatorului sa interacționeze cu sistemul-multiagent s-au implementat următoarele funcționalități: modificarea manuala a stării unei celule folosind mouseul, modificarea dimensiunii simulării folosind interfața grafica si modificarea si resetarea regulilor folosind editorul din simulare.  
+            
+        \subsection{Implementarea simulării}
+            \paragraph{}
+                \textbf{O celula} poate fi vie sau morta, aceste stări fiind reprezentate de 1 sau 0 logic.
+                Tabloul ce este format din mulțimea celulelor este stocat într-o matrice. Aceasta structura este implementata la rândul ei ca fiind un vector de vectorii de stări logice. 
+
+            \paragraph{}
+                \textbf{Starea celulelor} este modificata de către clasa din care fac parte, astfel celula in sine are doar funcționalitatea de a-si retine propria stare.
+
+            \paragraph{}
+                \textbf{Regulile de evoluție} sunt oferite de către un obiect ce deține o listă de reguli.
+                Acest obiect este inițializat folosind setul de reguli de baza. Obiectul conține o listă de cerințe.
+                Fiecare cerința are la rândul ei o lista de intervale si un set de condiții logice.
+                Aceste condiții sunt folosite pentru a determina daca un anumit scenariu se aplica.
+                In cazul in care scenariul est confirmat ca fiind potrivit pentru starea actuala se folosește un alt set intern de condiții ce stabilesc starea următoare a celulei.
+            
+            \paragraph{}
+                \textbf{Evolutia celuleror} este realizata de o metoda a clasei.
+                Aceasta funcție analizează datele ce sunt prezente in generația actuala si folosește instrucțiunile oferite de către serul de reguli pentru a genera următoare generație.
+
+            \paragraph{}
+                \textbf{Dimensiunea simulării} este predefinita dar se poate mari sau micșora folosind interfața grafica.
+                Modificarea simulării nu duce la pierderea stării, excepție de la aceasta regula o face micșorarea simulării astfel încât celulele depășesc limita acesteia.
+                Atât mărirea cat si micșorarea se face începând in coltul cel mai îndepărtat fata de origine.
+
+        \subsection{Implementarea interfeței grafice}
+            \paragraph{}
+                Acest sistem pune accent pe implementarea modelului multi-agent, astfel interfața comanda si afișează starea simulării.
+                Astfel arhitectura necesara implementării interfeței nu afectează sistemul simulat.
+
+            \paragraph{}
+                \textbf{Compatibilitatea dintre sistem si interfața grafica} se face folosind interfețele.
+                Sistemul multi-agent implementează o interfața ce permite interfeței grafice sa acceseze resursele necesare acesteia.
+
+                De asemenea interfața grafica are mai multe implementări ce implementează si ele la rândul lor o interfață.
+
+            \paragraph{}
+                \textbf{Interfața grafica} este implementata folosind doua sisteme diferita: componente web native si implementarea grafica folosind o librărie grafica specializata.
+                Acestea doua implementări sunt abstractizate si pot fi interschimbate  in timp real de către utilizator.
+
+    \section{Funcționarea programului pentru experimentare}
+
+        
 
     \section{Cazuri experimentale}
 
