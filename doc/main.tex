@@ -12,6 +12,8 @@
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
+\usepackage{float}
+
 \setlength{\parindent}{0.5cm}
 
 \title{Jocului Vieții\\Proiectul 6}
@@ -79,7 +81,7 @@
             \paragraph{}
                 \textbf{O celula} poate fi vie sau morta, aceste stări fiind reprezentate de 1 sau 0 logic.
                 Tabloul ce este format din mulțimea celulelor este stocat într-o matrice. Aceasta structura este implementata la rândul ei ca fiind un vector de vectorii de stări logice. 
-                \begin{figure}[h]
+                \begin{figure}[H]
                     \centering
                     \includegraphics[scale=0.8]{matrix_matrix_def}
                     \caption{Declararea matricii}
@@ -112,7 +114,7 @@
             \paragraph{}
                 \textbf{Compatibilitatea dintre sistem si interfața grafica} se face folosind interfețele.
                 Sistemul multi-agent implementează o interfața ce permite interfeței grafice sa acceseze resursele necesare acesteia.
-                \begin{figure}[h]
+                \begin{figure}[H]
                     \centering
                     \includegraphics[scale=0.8]{IMatrix_interface}
                     \caption{Interfața implementata de matrice}
@@ -125,7 +127,7 @@
             \paragraph{}
                 \textbf{Interfața grafica} este implementata folosind doua sisteme diferita: componente web native si implementarea grafica folosind o librărie grafica specializata.
                 Acestea doua implementări sunt abstractizate si pot fi interschimbate  in timp real de către utilizator.
-                \begin{figure}[h]
+                \begin{figure}[H]
                     \centering
                     \includegraphics[scale=0.8]{ICMatricRenderer_interface}
                     \caption{Interfața implementata de sistemele de randare}
@@ -136,6 +138,172 @@
         
 
     \section{Cazuri experimentale}
+        \paragraph{}
+            Principalele cazuri experimentale in cardul acestui sistem sunt formațiile celulare ce pot fi create.
+            Aceste organisme sunt de mai multe tipuri si au diferite stări.
+
+            Cele mai întâlnite formații sunt nave spațiale si organismele multi stabile.
+            Navele spațiale pot fi formate dintr-un număr mic sau mare de celule.
+            Organismele stabile pot avea de la os tare pana la N stări.
+
+            \subsection{Nave spațiale}
+                \begin{itemize}
+
+                    \item \textbf{Planor} acest organism are 4 stări si se mișca pe diagonala.
+                        \begin{figure}[H]
+                            \newcommand\lp{organisme/nave/planor}
+                            \centering
+                            \includegraphics[scale=0.8]{\lp/1}
+                            \includegraphics[scale=0.8]{\lp/2}
+                            \includegraphics[scale=0.8]{\lp/3}
+                            \includegraphics[scale=0.8]{\lp/4}
+                            \includegraphics[scale=0.8]{\lp/1}
+                            \caption{Cele 4 stari are planorului}
+                        \end{figure}
+
+                    \item \textbf{Navă spațială mica} are tot 4 si se mișca pe axa verticala si orizontala.
+                          Celelalte nave spatiale au același comportament dar difer prin dimensiune.
+                        \begin{figure}[H]
+                            \newcommand\lp{organisme/nave/navaMica}
+                            \centering
+                            \includegraphics[scale=0.7]{\lp/1}
+                            \includegraphics[scale=0.7]{\lp/2}
+                            \includegraphics[scale=0.7]{\lp/3}
+                            \includegraphics[scale=0.7]{\lp/4}
+                            \includegraphics[scale=0.7]{\lp/1}
+                            \caption{Cele 4 stări are navei spatiale mici}
+                        \end{figure}
+
+                    \item Navă spațială medie
+                        \begin{figure}[H]
+                            \centering
+                            \includegraphics[scale=0.7]{organisme/nave/navaMedie}
+                            \caption{Nava spatiala medie}
+                        \end{figure}
+
+                    \item Navă spațială mare
+                        \begin{figure}[H]
+                            \centering
+                            \includegraphics[scale=0.7]{organisme/nave/navaMare}
+                            \caption{Nava spatiala mare}
+                        \end{figure}
+
+                \end{itemize}
+                
+            \subsection{Organisme stabile}
+
+                \paragraph{}
+                    Aceste organisme mențin o forma stabila formata din una sau mai multe stări.
+                    Deși forma este stabila interacțiunea cu alte organisme o poate destabiliza.
+                    \begin{figure}[H]
+
+                        \newcommand\lp{organisme/stabile}
+                        \newcommand\locIngScale{0.8}
+                        \newcommand\locTextScale{0.33}
+
+                        \begin{figure}[H]
+                            \begin{minipage}{\locTextScale\textwidth}
+                            \centering
+                            \includegraphics[scale=1]{\lp/1-bloc}
+                            \caption{Bloc}
+                            \end{minipage}\hfill
+                            % 
+                            \begin{minipage}{\locTextScale\textwidth}
+                            \centering
+                            \includegraphics[scale=\locIngScale]{\lp/2-stup}
+                            \caption{Stup}
+                            \end{minipage}
+                            % 
+                            \begin{minipage}{\locTextScale\textwidth}
+                            \centering
+                            \includegraphics[scale=0.7]{\lp/3-felie}
+                            \caption{Felie}
+                            \end{minipage}
+                        \end{figure}
+
+                        \begin{figure}[H]
+                            \begin{minipage}{\locTextScale\textwidth}
+                            \centering
+                            \includegraphics[scale=\locIngScale]{\lp/4-barca}
+                            \caption{Barca}
+                            \end{minipage}
+                            % 
+                            \begin{minipage}{\locTextScale\textwidth}
+                            \centering
+                            \includegraphics[scale=\locIngScale]{\lp/5-tub}
+                            \caption{Tub}
+                            \end{minipage}
+                        \end{figure}
+                    \end{figure}
+                       
+            \subsection{Organisme multistabile}
+                    
+                    \paragraph{}
+                        Aceste organisme oscilează intre mai multe stări stabile.
+                        Sistemul celular format de către aceste se poate deregla doar prin interacțiune cu alte organisme.
+
+                    \begin{figure}[H]
+                        \newcommand\lp{organisme/oscilante/1-blinker}
+                        \centering
+                        \includegraphics[scale=0.7]{\lp/1}
+                        \includegraphics[scale=0.7]{\lp/2}
+                        \includegraphics[scale=0.7]{\lp/1}
+                        \caption{Blinker}
+                    \end{figure}
+
+                    \begin{figure}[H]
+                        \newcommand\lp{organisme/oscilante/2-toad}
+                        \centering
+                        \includegraphics[scale=0.7]{\lp/1}
+                        \includegraphics[scale=0.7]{\lp/2}
+                        \includegraphics[scale=0.7]{\lp/1}
+                        \caption{Toad}
+                    \end{figure}
+                    
+                    \begin{figure}[H]
+                        \newcommand\lp{organisme/oscilante/3-beacon}
+                        \centering
+                        \includegraphics[scale=0.7]{\lp/1}
+                        \includegraphics[scale=0.7]{\lp/2}
+                        \includegraphics[scale=0.7]{\lp/1}
+                        \caption{Beacon}
+                    \end{figure}
+                    
+                    \begin{figure}[H]
+                        \newcommand\lp{organisme/oscilante/4-pulsar}
+                        \centering
+                        \includegraphics[scale=0.8]{\lp/1}
+                        \includegraphics[scale=0.8]{\lp/2}
+                        \includegraphics[scale=0.8]{\lp/3}
+                        \includegraphics[scale=0.8]{\lp/1}
+                        \caption{Pulsar}
+                    \end{figure}
+
+                    \begin{figure}[H]
+                        \newcommand\lp{organisme/oscilante/5-pentadecathlon}
+                        \centering
+                        \includegraphics[scale=0.8]{\lp/1}
+                        \includegraphics[scale=0.8]{\lp/2}
+                        \includegraphics[scale=0.8]{\lp/3}
+                        \includegraphics[scale=0.8]{\lp/4}
+                        \includegraphics[scale=0.8]{\lp/5}
+                        \includegraphics[scale=0.8]{\lp/6}
+                        \includegraphics[scale=0.8]{\lp/7}
+                        \includegraphics[scale=0.8]{\lp/8}
+                        \includegraphics[scale=0.8]{\lp/9}
+                        \includegraphics[scale=0.8]{\lp/10}
+                        \includegraphics[scale=0.8]{\lp/11}
+                        \includegraphics[scale=0.8]{\lp/12}
+                        \includegraphics[scale=0.8]{\lp/13}
+                        \includegraphics[scale=0.8]{\lp/14}
+                        \includegraphics[scale=0.8]{\lp/15}
+                        \includegraphics[scale=0.8]{\lp/1}
+                        
+                        \caption{Pulsar}
+                    \end{figure}
+
+                
+
 
     \section{Probleme întâlnite}
         \paragraph{} 
