@@ -135,6 +135,52 @@
 
     \section{Funcționarea programului pentru experimentare}
 
+        \paragraph{}
+            O caracteristică esențială in cardul unei simulări este posibilitatea de a interacționa cu acel mediu si de a-i modifica parametri.
+            Sistemul multi-agent implementat prezintă un număr mare de parametri si opțiuni ce pot fi schimbate in timp real.
+            Parametrii inițiali sunt prestabiliți dar pot fi oricând modificați in carul simulării.
+
+            Parametrii ce pot fi modificați folosind interfața grafica pot altera: dimensiunea sistemului, regulile de evoluție si interacțiunea directa cu un agent.
+        
+        \paragraph{}
+            \textbf{Interactiunea cu starea sistemului} se poate face folosind mausul sau butoanele din cardul interfeței grafice sau tastatura.
+
+        \paragraph{}
+            \textbf{Mijloacele de interacțiune directa:}
+            \begin{itemize}
+
+                \item 
+                    \textbf{Mausul} permite schimbarea directa a stării cărei celule.
+                    Culoarea celulei selectate se schimba pentru a evidenția selecția acesteia.
+
+                \item 
+                    \textbf{Tastatura} permite resetarea sau incrementarea generației simulării.
+                    Folosind tasta "space" se poate trece la generația următoare.
+                    Pentru a simula cu rapiditate aceasta tasta se poate tine apăsata.
+                    Combinația de taste "ctrl" si "r" comanda setarea la starea inițială a sistemului.
+
+                \item
+                    \textbf{Editorul de reguli} permite utilizatorului sa modifice regulile de evoluție ale sistemului in timp real.
+                    Acesta integrare este foarte importanta in cadrul acestui proiect întrucât permite analiza sistemului in funcție de regulile impuse.
+                    Starea inițială a regulilor este cea prezentata in cadrul prezentării jocului.
+
+            \end{itemize}
+            
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale=1]{setings}
+                \caption{Parametrii disponibili utilizatorului}
+            \end{figure}
+
+            
+        \paragraph{}
+            \textbf{Dimensiunea sistemului} este prezentata sub forma a doua numere ce reprezinta numărul de linii si de coloane.
+            Simularea începe inițial având o dimensiune de 50 pe 50 de celule.
+            Acest număr o fost ales deoarece perforează simularea in timp real.
+            Maximul impus prin cod este de 500 pe 500 de celule, punct in care simularea încă se mișcă decent dar solicita deja destul de multe resurse.
+            Schimbarea acestor valori nu distruge stare curenta a agenților decât daca aceștia ies din spațiul de simulare.
+            La introducerea spațiului nou celulele sunt inițializate ca fiind inactive.
+
         
 
     \section{Cazuri experimentale}
