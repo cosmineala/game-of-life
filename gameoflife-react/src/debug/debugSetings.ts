@@ -1,3 +1,3 @@
 export const debugSetings = {
-    isDebug: false
+    isDebug: true
 };

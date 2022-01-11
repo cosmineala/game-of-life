@@ -27,7 +27,7 @@ interface IState{
 }
 
 let newDefaultMatrix = () => {
-    return new Matrix({ width: 50, height: 50 });
+    return new Matrix({ width: 100, height: 100 });
 }
 // react redux
 const reducer = (state: any, action: any): any => {

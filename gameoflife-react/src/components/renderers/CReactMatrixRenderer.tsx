@@ -41,7 +41,7 @@ let CReactMatrixRenderer: React.FC<ICMatrixRenderer> = ({ matrix, onCellClickCal
         if( debugSetings.isDebug === false ) return;
         return(
             <div style={{ width: "100%", height: "100%" ,border: "1px solid red" ,paddingLeft: "10px", color: "red" }}>
-                {`${i} - ${j}`}
+                {/* {`${i} - ${j}`} */}
             </div>
         );
     };
